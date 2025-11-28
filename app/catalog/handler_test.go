@@ -289,16 +289,8 @@ func TestHandleProductGet(t *testing.T) {
 			mockReq := &http.Request{
 				Method: req.Method,
 				URL:    req.URL,
-				// Set the context from the base request if needed, otherwise use context.Background()
-				// This function simulates what the router does by injecting the path variable.
-				PathValue: func(key string) string {
-					if key == "code" {
-						return tt.productCode // Inject the desired test value
-					}
-					return ""
-				},
 			}
-
+			mockReq = http.SetPathValue(mockReq, "code", tt.productCode)
 			// ACT: Call the handler with the mocked request
 			handler.HandleProductGet(rr, mockReq)
 

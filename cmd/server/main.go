@@ -41,6 +41,9 @@ func main() {
 	// Set up routing
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /catalog", cat.HandleGet)
+	mux.HandleFunc("GET /catalog/:code", cat.HandleProductGet)
+	mux.HandleFunc("GET /categories", cat.HandleCategoryList)
+	mux.HandleFunc("POST /categories", cat.HandleCategoryCreate)
 
 	// Set up the HTTP server
 	srv := &http.Server{
